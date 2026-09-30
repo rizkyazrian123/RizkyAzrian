@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Rizky Azrian — About Me</title>
+
+    <style>
+        /* ================================
+           RESET
+        ================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* ================================
+           VARIABLES
+        ================================= */
+        :root {
+            --red: #e50914;
+            --red-light: #ff3340;
+            --dark-red: #8b0000;
+            --black: #050505;
+            --black-2: #0d0d0d;
+            --card: #111111;
+            --card-2: #171717;
+            --white: #ffffff;
+            --gray: #a5a5a5;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        /* ================================
+           BACKGROUND
+        ================================= */
+        .background {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(229, 9, 20, 0.18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(139, 0, 0, 0.18),
+                    transparent 30%
+                ),
+                #050505;
+        }
+
+        .grid {
+            position: fixed;
+            inset: 0;
+            z-index: -9;
+            opacity: 0.08;
+            background-image:
+                linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+            mask-image: linear-gradient(to bottom, black, transparent);
+        }
+
+        /* ================================
+           PARTICLES
+        ================================= */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -5;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--red);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            from {
+                transform: translateY(100vh);
+            }
+
+            to {
+                transform: translateY(-10vh);
+            }
+        }
+
+        /* ================================
+           NAVBAR
+        ================================= */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+
+            background: rgba(5,5,5,0.65);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,.05);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: var(--red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #bbb;
+            text-decoration: none;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--red);
+        }
+
+        /* ================================
+           HERO
+        ================================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 7% 80px;
+        }
+
+        .hero-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 70px;
+            align-items: center;
+        }
+
+        .eyebrow {
+            color: var(--red-light);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 {
+            font-size: clamp(50px, 8vw, 100px);
+            line-height: .9;
+            letter-spacing: -5px;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: var(--red);
+        }
+
+        .hero-description {
+            max-width: 550px;
+            color: var(--gray);
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            margin-top: 35px;
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            border: none;
+            padding: 14px 22px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: .3s;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: white;
+            box-shadow: 0 0 25px rgba(229,9,20,.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            background: var(--red-light);
+            box-shadow: 0 0 35px rgba(229,9,20,.45);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,.05);
+            border: 1px solid var(--border);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--red);
+            color: var(--red-light);
+        }
+
+        /* ================================
+           PROFILE IMAGE
+        ================================= */
+        .profile-area {
+            display: flex;
+            justify-content: center;
+        }
+
+        .profile-card {
+            width: min(400px, 90vw);
+            aspect-ratio: 4/5;
+            position: relative;
+
+            border-radius: 35px;
+            padding: 12px;
+
+            background:
+                linear-gradient(145deg,
+                    rgba(229,9,20,.7),
+                    transparent 45%,
+                    rgba(139,0,0,.5)
+                );
+
+            box-shadow:
+                0 0 80px rgba(229,9,20,.15);
+        }
+
+        .profile-inner {
+            width: 100%;
+            height: 100%;
+            background: #101010;
+            border-radius: 27px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-inner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-placeholder {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(229,9,20,.2),
+                    transparent 50%
+                ),
+                #101010;
+
+            color: #777;
+        }
+
+        .profile-placeholder .icon {
+            font-size: 70px;
+            margin-bottom: 10px;
+        }
+
+        .upload-label {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+
+            background: white;
+            color: #080808;
+
+            padding: 12px 20px;
+            border-radius: 50px;
+
+            font-weight: 800;
+            cursor: pointer;
+
+            white-space: nowrap;
+
+            transition: .3s;
+        }
+
+        .upload-label:hover {
+            background: var(--red);
+            color: white;
+        }
+
+        #photoInput {
+            display: none;
+        }
+
+        /* ================================
+           SECTION
+        ================================= */
+        section {
+            padding: 110px 7%;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .section-title {
+            font-size: clamp(35px, 6vw, 60px);
+            margin-bottom: 12px;
+            letter-spacing: -2px;
+        }
+
+        .section-subtitle {
+            color: var(--gray);
+            margin-bottom: 50px;
+        }
+
+        /* ================================
+           INFO CARDS
+        ================================= */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 18px;
+        }
+
+        .info-card {
+            background: linear-gradient(
+                145deg,
+                #141414,
+                #0c0c0c
+            );
+
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 28px;
+
+            transition: .35s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(229,9,20,.45);
+
+            box-shadow:
+                0 20px 60px rgba(0,0,0,.5);
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: rgba(229,9,20,.1);
+            color: var(--red-light);
+
+            font-size: 23px;
+
+            margin-bottom: 20px;
+        }
+
+        .info-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .info-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ================================
+           DIGITAL ID
+        ================================= */
+        .digital-id {
+            margin-top: 20px;
+
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            background: #101010;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+
+            overflow: hidden;
+        }
+
+        .id-left {
+            padding: 35px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(229,9,20,.18),
+                    transparent
+                );
+        }
+
+        .id-right {
+            padding: 35px;
+        }
+
+        .id-name {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .id-role {
+            color: var(--red-light);
+            margin-bottom: 30px;
+        }
+
+        .id-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+
+            padding: 14px 0;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .id-item span:first-child {
+            color: #777;
+        }
+
+        /* ================================
+           FLIP CARDS
+        ================================= */
+        .flip-grid {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 18px;
+        }
+
+        .flip-card {
+            height: 270px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .flip-inner {
+            width: 100%;
+            height: 100%;
+
+            position: relative;
+
+            transform-style: preserve-3d;
+
+            transition: transform .7s;
+        }
+
+        .flip-card.active .flip-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-front,
+        .flip-back {
+            position: absolute;
+            inset: 0;
+
+            backface-visibility: hidden;
+
+            border-radius: 25px;
+            padding: 30px;
+
+            border: 1px solid var(--border);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .flip-front {
+            background:
+                linear-gradient(
+                    145deg,
+                    #171717,
+                    #0b0b0b
+                );
+        }
+
+        .flip-back {
+            background:
+                linear-gradient(
+                    145deg,
+                    #260708,
+                    #100000
+                );
+
+            transform: rotateY(180deg);
+        }
+
+        .card-number {
+            color: var(--red);
+            font-size: 12px;
+            letter-spacing: 3px;
+            font-weight: 900;
+        }
+
+        .flip-card h3 {
+            font-size: 28px;
+            margin: 15px 0 10px;
+        }
+
+        .flip-card p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ================================
+           TRAITS
+        ================================= */
+        .traits {
+            display: grid;
+            gap: 20px;
+            background: #101010;
+            padding: 30px;
+            border-radius: 25px;
+            border: 1px solid var(--border);
+        }
+
+        .trait {
+            display: grid;
+            grid-template-columns: 120px 1fr 40px;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .trait-name {
+            font-weight: 700;
+        }
+
+        .bar {
+            height: 9px;
+            border-radius: 50px;
+            background: #252525;
+            overflow: hidden;
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            width: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--dark-red),
+                    var(--red-light)
+                );
+
+            border-radius: inherit;
+
+            transition: width 1.2s ease;
+        }
+
+        .trait-value {
+            color: #777;
+            font-size: 13px;
+        }
+
+        /* ================================
+           FUN FACT
+        ================================= */
+        .fun-fact {
+            background:
+                linear-gradient(
+                    120deg,
+                    rgba(229,9,20,.14),
+                    rgba(0,0,0,.5)
+                );
+
+            border: 1px solid var(--border);
+
+            border-radius: 25px;
+
+            padding: 35px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .fact-label {
+            color: var(--red-light);
+            font-size: 12px;
+            letter-spacing: 3px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        #factText {
+            font-size: 20px;
+            line-height: 1.6;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
+        footer {
+            text-align: center;
+            padding: 80px 20px;
+
+            border-top: 1px solid var(--border);
+
+            color: #777;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        footer span {
+            color: var(--red);
+        }
+
+        /* ================================
+           RESPONSIVE
+        ================================= */
+        @media (max-width: 900px) {
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-description {
+                margin: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .profile-area {
+                order: -1;
+            }
+
+            .profile-card {
+                width: min(330px, 85vw);
+            }
+
+            .info-grid,
+            .flip-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .digital-id {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            nav {
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 110px 5% 60px;
+            }
+
+            section {
+                padding: 80px 5%;
+            }
+
+            .hero h1 {
+                font-size: 55px;
+                letter-spacing: -3px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .profile-card {
+                width: 280px;
+            }
+
+            .digital-id {
+                border-radius: 20px;
+            }
+
+            .id-left,
+            .id-right {
+                padding: 25px;
+            }
+
+            .id-name {
+                font-size: 30px;
+            }
+
+            .trait {
+                grid-template-columns: 85px 1fr 30px;
+                gap: 8px;
+                font-size: 13px;
+            }
+
+            .fun-fact {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .fun-fact .btn {
+                width: 100%;
+            }
+        }
+
+        /* ================================
+           SCROLL REVEAL
+        ================================= */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity .8s ease, transform .8s ease;
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- BACKGROUND -->
+    <div class="background"></div>
+    <div class="grid"></div>
+    <div class="particles" id="particles"></div>
+
+
+    <!-- NAVBAR -->
+    <nav>
+
+        <div class="logo">
+            R<span>A</span>.
+        </div>
+
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#personality">Personality</a></li>
+            <li><a href="#facts">Facts</a></li>
+        </ul>
+
+    </nav>
+
+
+    <!-- ================================
+         HERO
+    ================================= -->
+
+    <main id="home">
+
+        <section class="hero">
+
+            <div class="hero-container">
+
+                <div class="hero-content">
+
+                    <div class="eyebrow">
+                        WELCOME TO MY WORLD
+                    </div>
+
+                    <h1>
+                        WHO<br>
+                        <span>AM I?</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Halo, aku Rizky Azrian. Ini adalah ruang kecil
+                        untuk mengenal diriku lebih dekat — bukan hanya
+                        sebagai seorang siswa, tetapi sebagai seseorang
+                        yang masih terus belajar, mencoba, dan berkembang.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#about"
+                            class="btn btn-primary"
+                        >
+                            Kenali Aku →
+                        </a>
+
+                        <a
+                            href="#personality"
+                            class="btn btn-secondary"
+                        >
+                            Lihat Personality
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <div class="profile-area">
+
+                    <div
+                        class="profile-card"
+                        id="profileCard"
+                    >
+
+                        <div class="profile-inner">
+
+                            <div
+                                class="profile-placeholder"
+                                id="placeholder"
+                
